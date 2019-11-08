@@ -1,9 +1,16 @@
+<?php require_once "includes/database.php"; ?>
 <?php 
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(isset($_POST["add_article"])){
         echo "<br>";
         echo "<pre>",print_r($_POST),"</pre>";
         echo "<br>";
+        $title = trim($_POST["title"]);
+        $content = trim($_POST["content"]);
+        $published_at = trim($_POST["published_at"]);
+        $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}')";
+        mysqli_query($conn,$insert);
     }
 }
 ?>
