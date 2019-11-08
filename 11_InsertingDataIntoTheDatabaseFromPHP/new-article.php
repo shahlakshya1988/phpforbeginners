@@ -6,12 +6,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         echo "<br>";
         echo "<pre>",print_r($_POST),"</pre>";
         echo "<br>";
-        $title = trim($_POST["title"]);
-        $content = trim($_POST["content"]);
-        $published_at = trim($_POST["published_at"]);
+        $title = mysqli_real_escape_string($conn,trim($_POST["title"]));
+        $content = mysqli_real_escape_string($conn,trim($_POST["content"]));
+        $published_at = mysqli_real_escape_string($conn,trim($_POST["published_at"]));
        // $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}')";
        $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}')";
-        mysqli_query($conn,$insert);
+
+        mysqli_query($conn,$insert) or die($insert." => ".mysqli_error($conn));
         /*
         inserting multiple values in single sql will give the 10, but last inserted 
         was 12;
