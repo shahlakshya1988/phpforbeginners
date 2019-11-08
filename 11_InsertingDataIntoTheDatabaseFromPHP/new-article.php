@@ -9,8 +9,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $title = trim($_POST["title"]);
         $content = trim($_POST["content"]);
         $published_at = trim($_POST["published_at"]);
-        $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}')";
+       // $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}')";
+       $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}')";
         mysqli_query($conn,$insert);
+        /*
+        inserting multiple values in single sql will give the 10, but last inserted 
+        was 12;
+         */
+        var_dump(mysqli_insert_id($conn)); 
     }
 }
 ?>
