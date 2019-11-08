@@ -10,14 +10,26 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $content = mysqli_real_escape_string($conn,trim($_POST["content"]));
         $published_at = mysqli_real_escape_string($conn,trim($_POST["published_at"]));
        // $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}')";
-       $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}')";
+       //$insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}')";
+       $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values (?,?,?)";
+       $smt= mysqli_prepare($conn,$insert);
+       if(!$smt){
+            mysqli_stmt_bind_param($smt,'sbs',$title,$content,$published_at);
+            if(mysqli_stmt_execute($smt)){
+                var_dump(mysqli_insert_id($conn));
+            }else{
+                mysqli_stmt_error($smt);
+            }
+       }else{
+        mysqli_error($conn);
+       }
 
-        mysqli_query($conn,$insert) or die($insert." => ".mysqli_error($conn));
+        //mysqli_query($conn,$insert) or die($insert." => ".mysqli_error($conn));
         /*
         inserting multiple values in single sql will give the 10, but last inserted 
         was 12;
          */
-        var_dump(mysqli_insert_id($conn)); 
+        //var_dump(mysqli_insert_id($conn)); 
     }
 }
 ?>
