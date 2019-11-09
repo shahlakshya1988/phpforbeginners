@@ -27,6 +27,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_bind_param($smt,'sbs',$title,$content,$published_at);
                 if(mysqli_stmt_execute($smt)){
                     var_dump(mysqli_insert_id($conn));
+                    unset($title);
+                    unset($content);
+                    unset($published_at);
                 }else{
                     mysqli_stmt_error($smt);
                 }
@@ -61,15 +64,15 @@ if(isset($error)){
 <form action="" method="POST">
     <div>
         <label for="title">Article Title</label>
-        <input type="text" name="title" id="title" placeholder="Article Title">
+        <input type="text" name="title" id="title" placeholder="Article Title" value="<?php echo isset($title)?$title:null; ?>">
     </div>
     <div>
         <label for="content">Content</label>
-        <textarea name="content" id="content" cols="30" rows="10" placeholder="Enter Content"></textarea>
+        <textarea name="content" id="content" cols="30" rows="10" placeholder="Enter Content"><?php echo isset($content)? $content : null; ?></textarea>
     </div>
     <div>
         <label for="published_at">Published At</label>
-        <input type="datetime-local" name="published_at" id="published_at" placeholder="published At">
+        <input type="datetime-local" name="published_at" id="published_at" placeholder="published At" value="<?php echo isset($published_at) ? $published_at : null; ?>" >
     </div>
     <div>
         <button type="submit" name="add_article">Add Article</button>
