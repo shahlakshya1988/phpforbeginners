@@ -17,6 +17,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         if(trim($content)==""){
             $error[]="Content Is Required";
         }
+        if(trim($published_at) == ""){
+            $published_at = NULL;
+        }
        // $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}')";
        //$insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}')";
 
