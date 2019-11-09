@@ -4,9 +4,9 @@
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $conn = getDB();
     if(isset($_POST["add_article"])){
-        echo "<br>";
-        echo "<pre>",print_r($_POST),"</pre>";
-        echo "<br>";
+        //echo "<br>";
+        //echo "<pre>",print_r($_POST),"</pre>";
+        //echo "<br>";
         $error=[];
         $title = mysqli_real_escape_string($conn,trim($_POST["title"]));
         $content = mysqli_real_escape_string($conn,trim($_POST["content"]));
@@ -23,14 +23,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
        if(empty($error)){
         $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values (?,?,?)";
         $smt= mysqli_prepare($conn,$insert);
-        if(!$smt){
+        if($smt){
                 mysqli_stmt_bind_param($smt,'sbs',$title,$content,$published_at);
                 if(mysqli_stmt_execute($smt)){
+                    var_dump("Inserted");
                     var_dump(mysqli_insert_id($conn));
                     unset($title);
                     unset($content);
                     unset($published_at);
                 }else{
+                    var_dump("Error");
                     mysqli_stmt_error($smt);
                 }
         }else{
@@ -64,11 +66,11 @@ if(isset($error)){
 <form action="" method="POST">
     <div>
         <label for="title">Article Title</label>
-        <input type="text" name="title" id="title" placeholder="Article Title" value="<?php echo isset($title)?$title:null; ?>">
+        <input type="text" name="title" id="title" placeholder="Article Title" value="<?php echo isset($title)?htmlspecialchars($title):null; ?>">
     </div>
     <div>
         <label for="content">Content</label>
-        <textarea name="content" id="content" cols="30" rows="10" placeholder="Enter Content"><?php echo isset($content)? $content : null; ?></textarea>
+        <textarea name="content" id="content" cols="30" rows="10" placeholder="Enter Content"><?php echo isset($content)? htmlspecialchars($content) : null; ?></textarea>
     </div>
     <div>
         <label for="published_at">Published At</label>
