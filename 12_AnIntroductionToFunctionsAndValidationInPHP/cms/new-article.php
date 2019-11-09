@@ -50,7 +50,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     var_dump("Inserted");
                     //var_dump(mysqli_insert_id($conn));
                     $id = mysqli_insert_id($conn);
-                    header("Location: article.php?id=$id");
+                    if(isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]!="off"){
+                        $protocol = "https";
+                    }else{
+                        $protocol = "http";
+                    }
+                    header("Location: {$protocol}://{$_SERVER["HTTP_HOST"]}/phpforbeginners/12_AnIntroductionToFunctionsAndValidationInPHP/article.php?id=$id");
+                    header("Location: article.php?id=$id"); // development
                     die();
                     unset($title);
                     unset($content);
