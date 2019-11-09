@@ -1,4 +1,4 @@
-<?php require_once "includes/database.php"; ?>
+<?php ob_start(); require_once "includes/database.php"; ?>
 <?php 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -19,6 +19,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
         if(trim($published_at) == ""){
             $published_at = NULL;
+        }else{
+            var_dump($published_at);
+            $published_at = date("d-m-Y h:i:s A",strtotime($published_at));
+            var_dump($published_at);
+            $date_time = date_create_from_format("d-m-Y h:i:s A",$published_at);
+            //var_dump($date_time); die();
+            if(!$date_time){
+                $error[]="Please Enter Proper Date Time";
+            }
+            $date_error = date_get_last_errors();
+            //var_dump($date_time);
+        var_dump($date_error);
+        var_dump(count($date_error["warnings"]) > 0);
+        //var_dump($error);
+            if(count($date_error["warnings"]) > 0){
+
+                $error[]="Enter Proper Date ";
+            }
         }
        // $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}')";
        //$insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}')";
@@ -30,7 +48,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 mysqli_stmt_bind_param($smt,'sbs',$title,$content,$published_at);
                 if(mysqli_stmt_execute($smt)){
                     var_dump("Inserted");
-                    var_dump(mysqli_insert_id($conn));
+                    //var_dump(mysqli_insert_id($conn));
+                    $id = mysqli_insert_id($conn);
+                    header("Location: article.php?id=$id");
+                    die();
                     unset($title);
                     unset($content);
                     unset($published_at);
@@ -83,4 +104,4 @@ if(isset($error)){
         <button type="submit" name="add_article">Add Article</button>
     </div>
 </form>
-<?php require_once "includes/footer.php"; ?>
+<?php require_once "includes/footer.php"; ob_end_flush(); ?>
