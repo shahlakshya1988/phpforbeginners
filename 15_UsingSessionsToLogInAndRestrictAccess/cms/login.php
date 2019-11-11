@@ -19,7 +19,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <h2>Login</h2>
 <?php // var_dump($errors);?>
 <form action="" method="POST">
-	<?php
+	<?php 
 	if(isset($errors) && !empty($errors)):
 		foreach($errors as $error){
 			?>
