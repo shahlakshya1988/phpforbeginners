@@ -7,6 +7,7 @@ if (isset($_GET['id']) && is_numeric($_GET['id'])) {
    $title = $article["title"];
    $content = $article["content"];
    $published_at= $article["published_at"];
+   
   // var_dump($published_at);
 } else {
     $article = null;
@@ -19,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
 		 $title = trim($_POST["title"]);
        	$content = trim($_POST["content"]);
        	$published_at = trim($_POST["published_at"]);
-       	$published_at = date("d-m-Y h:i:s A",strtotime($published_at));
+       	$published_at = date("Y-m-d H:i:s",strtotime($published_at));
        	$error = validateArticle($title,$content,$published_at);
 
        	if(!empty($error)){
@@ -36,8 +37,17 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
        			var_dump($content);
        			var_dump($published_at);
        			var_dump($id);
+				//die();
        			mysqli_stmt_bind_param($stmt,"sssi",$title,$content,$published_at,$id);
-       			mysqli_stmt_execute($stmt);
+       			if(mysqli_stmt_execute($stmt)){
+					if(isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]!="off"){
+						$protocol ="https://";
+					}else{
+						$protocol ="http://";
+					}
+					header("refresh:0;article.php?id={$id}");
+					die();
+				}
        		}
        	}
 	}

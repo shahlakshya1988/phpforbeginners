@@ -11,6 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $title = mysqli_real_escape_string($conn,trim($_POST["title"]));
         $content = mysqli_real_escape_string($conn,trim($_POST["content"]));
         $published_at = mysqli_real_escape_string($conn,trim($_POST["published_at"]));
+		$published_at = date("d-m-Y H:i:s",strtotime($published_at));
        $error = validateArticle($title,$content,$published_at);
        // $insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}'),('{$title}','{$content}','{$published_at}')";
        //$insert = "INSERT INTO `article`(`title`,`content`,`published_at`) values ('{$title}','{$content}','{$published_at}')";

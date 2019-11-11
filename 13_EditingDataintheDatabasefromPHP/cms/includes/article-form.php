@@ -9,6 +9,7 @@ if(isset($error)){
         echo "</ul>";
    }
 }
+var_dump($published_at);
 ?>
 <form action="" method="POST">
     <div>
@@ -21,7 +22,7 @@ if(isset($error)){
     </div>
     <div>
         <label for="published_at">Published At</label>
-        <input type="datetime-local" name="published_at" id="published_at" placeholder="published At" value="<?php echo isset($published_at) ? $published_at : null; ?>" >
+        <input type="datetime-local" name="published_at" id="published_at" placeholder="published At" value="<?php echo isset($published_at) ? date("Y-m-d\TH:i:s",strtotime($published_at)) : null; ?>" >
     </div>
     <div>
         <button type="submit" name="add_article">Save Form</button>
