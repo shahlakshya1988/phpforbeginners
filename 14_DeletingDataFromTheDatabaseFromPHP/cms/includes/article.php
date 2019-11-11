@@ -2,9 +2,9 @@
 /*
 
  */
-function getRelatedArticle($id){
+function getRelatedArticle($id,$columns = "*"){
 	$conn = getDb();
-	$sql = "SELECT * FROM `article` where `id` = ?";
+	$sql = "SELECT {$columns} FROM `article` where `id` = ?";
 	$stmt = mysqli_prepare($conn,$sql);
 	if(!$stmt){
 		echo mysqli_error($stmt);
