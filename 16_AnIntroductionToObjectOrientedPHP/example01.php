@@ -24,3 +24,7 @@ echo "<br>******************<br>";
 $myItem3 = new Item();
 $myItem3->name="Item 3";
 var_dump($myItem3->getName());
+
+echo "<br>******************<br>";
+$myItem4 = new Item("Item 4","Item 4 Description Goes here");
+var_dump($myItem4);
