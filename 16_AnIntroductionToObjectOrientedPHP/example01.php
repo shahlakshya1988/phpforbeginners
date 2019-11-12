@@ -27,4 +27,9 @@ var_dump($myItem3->getName());
 
 echo "<br>******************<br>";
 $myItem4 = new Item("Item 4","Item 4 Description Goes here");
-var_dump($myItem4);
+//var_dump($myItem4->cost);
+echo "<br>******************<br>";
+$myItem5 = new Item("Item 5","Item 5 Description Goes here",5000);
+var_dump($myItem5);
+echo $myItem5->getCost();
+echo "<br>";
