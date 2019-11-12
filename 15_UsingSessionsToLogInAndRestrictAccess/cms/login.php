@@ -6,7 +6,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 		$username = trim($_POST["username"]);
 		$password = trim($_POST["password"]);
 		if($username == "dave" && $password == "123"){
-			die("Login Correct");
+			// die("Login Correct");
+			session_regenerate_id(true); // this gives new id to session, data is maintained
 			$_SESSION["is_logged_in"] = true;
 			header("Location: index.php");
 			die();
