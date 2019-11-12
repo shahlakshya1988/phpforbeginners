@@ -1,4 +1,10 @@
-<?php ob_start();session_start(); require_once "includes/database.php"; require_once "includes/article.php"; ?>
+<?php ob_start();session_start(); require_once "includes/database.php"; require_once "includes/article.php"; require_once "includes/auth.php"; 
+
+if(!isLoggedIn()){
+    header("Location: login.php");
+    die();
+}
+?>
 <?php 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){

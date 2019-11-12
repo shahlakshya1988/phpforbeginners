@@ -1,8 +1,12 @@
 <?php
-session_start();
+
 require 'includes/database.php';
 require 'includes/auth.php';
+
+session_start();
+
 $conn = getDB();
+
 $sql = "SELECT *
         FROM article
         ORDER BY published_at;";
@@ -17,20 +21,18 @@ if ($results === false) {
 
 ?>
 <?php require 'includes/header.php'; ?>
-<?php 
-if(isLoggedIn()):
-    ?>
-        <p>You Are Logged In. <a href="logout.php">Logout</a></p>
-        <p><a href="new-article.php">Add New Article</a></p>
-    <?php 
-else:
-    ?>
-    <p>You Are Not Logged In. <a href="login.php">Login</a></p>
-    <?php
-endif;
-?>
 
-<br>
+<?php if (isLoggedIn()): ?>
+
+    <p>You are logged in. <a href="logout.php">Log out</a></p>
+    <p><a href="new-article.php">New article</a></p>
+
+<?php else: ?>
+
+    <p>You are not logged in. <a href="login.php">Log in</a></p>
+
+<?php endif; ?>
+
 <?php if (empty($articles)): ?>
     <p>No articles found.</p>
 <?php else: ?>

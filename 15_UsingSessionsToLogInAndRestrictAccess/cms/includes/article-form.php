@@ -9,7 +9,7 @@ if(isset($error)){
         echo "</ul>";
    }
 }
-var_dump($published_at);
+//var_dump($published_at);
 ?>
 <form action="" method="POST">
     <div>
