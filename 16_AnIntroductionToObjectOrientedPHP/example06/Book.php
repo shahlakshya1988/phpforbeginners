@@ -6,26 +6,6 @@
 * BE CAREFULL IN EDITING PARENT CLASS METHODS AS THEY WILL REFLECT IN CHILD
 * CLASS ALSO
 */
- class ClassName extends AnotherClass
- {
-
-     function __construct(argument)
-     {
-         // code...
-     }
- }
-
- */
-class ClassName extends AnotherClass
-{
-
-    function __construct(argument)
-    {
-        // code...
-    }
-}
-
-**/
 class Book extends Item{
     public $author;
     public function getDetails(){
