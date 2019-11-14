@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->published_at = $_POST["published_at"];
 
 //var_dump($published_at); die();
-    $errors = validateArticle($article->title, $article->content, $article->published_at);
+    $errors = $article->validateArticle();
 
     if (empty($errors)) {
         //($article->update($conn));
