@@ -2,27 +2,17 @@
 
 // require 'includes/database.php';
 require_once "classes/Database.php";
+require_once "classes/Article.php";
 require 'includes/auth.php';
 
 session_start();
 
 $db = new Database();
 $conn = $db->getConnection();
+$articles = Article::getAll($conn);
 
 
 
-$sql = "SELECT *
-        FROM article
-        ORDER BY published_at;";
-
-try{
-    $results = $conn->query($sql);
-}catch(Exception $e){
-    echo $e->getMessage();
-    die();
-}
-//var_dump($results);
-$articles = $results->fetchAll(PDO::FETCH_ASSOC);
 /*if ($results === false) {
     print_r($conn->errorInfo());
     die();

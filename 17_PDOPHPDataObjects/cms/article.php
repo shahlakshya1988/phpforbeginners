@@ -1,14 +1,15 @@
 <?php
 require_once "classes/Database.php";
 // require 'includes/database.php';
-require 'includes/article.php';
+require_once "classes/Article.php";
 
 $db = new Database();
 $conn = $db -> getConnection();
 
 
 if (isset($_GET['id'])) {
-    $article = getArticle($conn, $_GET['id']);
+   // $article = getArticle($conn, $_GET['id']);
+    $article = Article::getById($conn,$_GET['id']);
 } else {
     $article = null;
 }
