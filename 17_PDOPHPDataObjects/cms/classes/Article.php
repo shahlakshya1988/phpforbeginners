@@ -59,4 +59,20 @@ class Article{
         }
     
     }
+
+    /**
+     * 
+     */
+    public function update($conn){
+        $sql = "UPDATE `article` SET `title` = :title, `content`=:content, `published_at`=:published_at where `id` = :id";
+        $stmt = $conn->prepare($sql);
+        return $stmt->execute([
+            "title"=>$this->title,
+            "content"=>$this->content,
+            "published_at"=>$this->published_at,
+            "id"=>$this->id
+        ]);
+
+
+    }
 }

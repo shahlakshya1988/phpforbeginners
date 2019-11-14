@@ -1,21 +1,31 @@
 <?php
-
-require 'includes/database.php';
-require 'includes/article.php';
+/*
+require 'includes/database.php';*/
+require 'includes/article.php'; 
+require "classes/Database.php";
+require "classes/Article.php";
 require 'includes/url.php';
 
-$conn = getDB();
+$db = new Database();
+$conn = $db->getConnection();
 
 if (isset($_GET['id'])) {
 
-    $article = getArticle($conn, $_GET['id']);
+    $article = Article::getById($conn, $_GET['id']);
+    //var_dump($article);
 
     if ($article) {
 
-        $id = $article['id'];
-        $title = $article['title'];
-        $content = $article['content'];
-        $published_at = $article['published_at'];
+        // $id = $article['id'];
+        $id = $article->id;
+        // $title = $article['title'];
+        $title = $article->title;
+        // $content = $article['content'];
+        $content = $article->content;
+        // $published_at = $article['published_at'];
+        $published_at = $article->published_at;
+        //$published_at = date("d-m-Y\TH:i:sP",strtotime($published_at));
+        //var_dump($published_at);
 
     } else {
         die("article not found");
@@ -27,43 +37,24 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $title = $_POST['title'];
-    $content = $_POST['content'];
-    $published_at = $_POST['published_at'];
+    // $title = $_POST['title'];
+    $article->title = $_POST["title"];
+    // $content = $_POST['content'];
+    $article->content = $_POST["content"];
+    // $published_at = $_POST['published_at'];
+    $article->published_at = $_POST["published_at"];
 
-    $errors = validateArticle($title, $content, $published_at);
+//var_dump($published_at); die();
+    $errors = validateArticle($article->title, $article->content, $article->published_at);
 
     if (empty($errors)) {
-        
-        $sql = "UPDATE article
-                SET title = ?,
-                    content = ?,
-                    published_at = ?
-                WHERE id = ?";
+        //($article->update($conn));
+        if($article->update($conn)){
+            //var_dump("I am ok"); die();
+            redirect("article.php?id={$article->id}");
+            die();
+        }else{
 
-        $stmt = mysqli_prepare($conn, $sql);
-
-        if ($stmt === false) {
-
-            echo mysqli_error($conn);
-
-        } else {
-
-            if ($published_at == '') {
-                $published_at = null;
-            }
-
-            mysqli_stmt_bind_param($stmt, "sssi", $title, $content, $published_at, $id);
-
-            if (mysqli_stmt_execute($stmt)) {
-
-                redirect("article.php?id=$id");
-
-            } else {
-
-                echo mysqli_stmt_error($stmt);
-
-            }
         }
     }
 }
