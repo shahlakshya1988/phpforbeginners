@@ -15,14 +15,20 @@ $sql = "SELECT *
         FROM article
         ORDER BY published_at;";
 
-$results = $conn->query($sql);
+try{
+    $results = $conn->query($sql);
+}catch(Exception $e){
+    echo $e->getMessage();
+    die();
+}
 //var_dump($results);
-if ($results === false) {
+$articles = $results->fetchAll(PDO::FETCH_ASSOC);
+/*if ($results === false) {
     print_r($conn->errorInfo());
     die();
 } else {
     $articles = $results->fetchAll(PDO::FETCH_ASSOC);
-}
+} */
 //var_dump($articles);
 ?>
 <?php require 'includes/header.php'; ?>
