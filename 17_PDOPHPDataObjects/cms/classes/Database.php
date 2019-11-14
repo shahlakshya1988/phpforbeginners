@@ -1,20 +1,36 @@
 <?php
-class Database{
-   
-    public function getConnection(){
+
+/**
+ * Database
+ *
+ * A connection to the database
+ */
+class Database
+{
+    /**
+     * Get the database connection
+     *
+     * @return PDO object Connection to the database server
+     */
+    public function getConn()
+    {
         $db_host = "localhost";
         $db_name = "phpforbeginners_cms";
         $db_user = "root";
         $db_pass = "";
-        $dsn = "mysql:host={$db_host};dbname={$db_name}";
-        try{
-            $db = new PDO($dsn,$db_user,$db_pass);
-            $db->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+
+        $dsn = 'mysql:host=' . $db_host . ';dbname=' . $db_name . ';charset=utf8';
+
+        try {
+
+            $db = new PDO($dsn, $db_user, $db_pass);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
             return $db;
-        }catch(PDOException $e){
-          //  var_dump($e);
+
+        } catch (PDOException $e) {
             echo $e->getMessage();
-            die();
+            exit;
         }
     }
 }

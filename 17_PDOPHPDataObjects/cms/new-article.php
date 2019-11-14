@@ -7,7 +7,7 @@ require 'includes/auth.php';
 
 session_start();
 
-if ( ! isLoggedIn()) {
+if (! isLoggedIn()) {
 
     die("unauthorised");
 
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors)) {
 
         $conn = getDB();
-
+        
         $sql = "INSERT INTO article (title, content, published_at) VALUES (?, ?, ?)";
 
         $stmt = mysqli_prepare($conn, $sql);
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $id = mysqli_insert_id($conn);
 
-                redirect("article.php?id=$id");
+                redirect("/article.php?id=$id");
 
             } else {
 

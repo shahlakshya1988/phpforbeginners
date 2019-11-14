@@ -1,16 +1,13 @@
 <?php
-require_once "classes/Database.php";
-// require 'includes/database.php';
-require_once "classes/Article.php";
+
+require 'classes/Database.php';
+require 'classes/Article.php';
 
 $db = new Database();
-$conn = $db -> getConnection();
-
+$conn = $db->getConn();
 
 if (isset($_GET['id'])) {
-   // $article = getArticle($conn, $_GET['id']);
-    $article = Article::getById($conn,$_GET['id']);
-    var_dump($article);
+    $article = Article::getByID($conn, $_GET['id']);
 } else {
     $article = null;
 }
@@ -18,9 +15,7 @@ if (isset($_GET['id'])) {
 ?>
 <?php require 'includes/header.php'; ?>
 
-<?php if ($article === null || $article === FALSE ) : ?>
-    <p>Article not found.</p>
-<?php else : ?>
+<?php if ($article) : ?>
 
     <article>
         <h2><?= htmlspecialchars($article->title); ?></h2>
@@ -30,6 +25,8 @@ if (isset($_GET['id'])) {
     <a href="edit-article.php?id=<?= $article->id; ?>">Edit</a>
     <a href="delete-article.php?id=<?= $article->id; ?>">Delete</a>
 
+<?php else : ?>
+    <p>Article not found.</p>
 <?php endif; ?>
 
 <?php require 'includes/footer.php'; ?>
