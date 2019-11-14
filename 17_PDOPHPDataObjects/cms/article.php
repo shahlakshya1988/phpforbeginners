@@ -1,9 +1,11 @@
 <?php
-
-require 'includes/database.php';
+require_once "classes/Database.php";
+// require 'includes/database.php';
 require 'includes/article.php';
 
-$conn = getDB();
+$db = new Database();
+$conn = $db -> getConnection();
+
 
 if (isset($_GET['id'])) {
     $article = getArticle($conn, $_GET['id']);
@@ -14,7 +16,7 @@ if (isset($_GET['id'])) {
 ?>
 <?php require 'includes/header.php'; ?>
 
-<?php if ($article === null) : ?>
+<?php if ($article === null || $article === FALSE ) : ?>
     <p>Article not found.</p>
 <?php else : ?>
 
