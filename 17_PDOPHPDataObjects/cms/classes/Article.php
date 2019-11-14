@@ -4,6 +4,27 @@
  */
 class Article{
     /**
+     * [$id description]
+     * @var [type]
+     */
+    public $id;
+    /**
+     * [$title description]
+     * @var [type]
+     */
+    public $title;
+    /**
+     * [$content description]
+     * @var [type]
+     */
+    public $content;
+    /**
+     * [$published_at description]
+     * @var [type]
+     */
+    public $published_at;
+
+    /**
      * 
      */
     public static function getAll($conn){
@@ -32,8 +53,9 @@ class Article{
 
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(":id",$id,PDO::PARAM_INT);
+        $stmt->setFetchMode(PDO::FETCH_CLASS,'Article');
         if($stmt->execute()){
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            return $stmt->fetch();
         }
     
     }
