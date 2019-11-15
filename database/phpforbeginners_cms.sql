@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 13, 2019 at 05:01 AM
+-- Generation Time: Nov 15, 2019 at 02:55 AM
 -- Server version: 5.7.26-log
 -- PHP Version: 7.2.18
 
@@ -56,6 +56,26 @@ INSERT INTO `article` (`id`, `title`, `content`, `published_at`) VALUES
 (17, 'asdf', '', '0000-00-00 00:00:00'),
 (18, 'asdf', '', '0000-00-00 00:00:00');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(255) NOT NULL,
+  `username` varchar(200) COLLATE utf8mb4_bin NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_bin NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`) VALUES
+(1, 'dave', '123');
+
 --
 -- Indexes for dumped tables
 --
@@ -68,6 +88,13 @@ ALTER TABLE `article`
   ADD KEY `title` (`title`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -76,6 +103,12 @@ ALTER TABLE `article`
 --
 ALTER TABLE `article`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
