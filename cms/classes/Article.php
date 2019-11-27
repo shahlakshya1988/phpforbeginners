@@ -133,11 +133,11 @@ class Article
         }
 
         if ($this->published_at != '') {
-        var_dump($this->published_at);
+        //var_dump($this->published_at);
           $this->published_at = date('Y-m-d H:i:s',strtotime($this->published_at));
           //var_dump($this->published_at);
             $date_time = date_create_from_format('Y-m-d H:i:s', $this->published_at);
-            var_dump($date_time); die();
+            //var_dump($date_time); die();
 
             if ($date_time === false) {
 
