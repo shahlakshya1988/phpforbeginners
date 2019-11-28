@@ -7,9 +7,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = require_once "includes/db.php";
     if (User::authenticate($conn,$_POST["username"],$_POST["password"])) {
 
-        session_regenerate_id(true);
-
-        $_SESSION['is_logged_in'] = true;
+        Auth::login();
 
         Url::redirect('/');
 
