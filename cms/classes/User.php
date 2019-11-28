@@ -11,7 +11,8 @@ class User{
 		$stmt->execute();
 		$user = $stmt->fetch();
 		if($user){
-			if($user->password == $password){
+			if(password_verify($password,$user->password)){
+			// if($user->password == $password){
 				return true;
 			}else{
 				return false;
