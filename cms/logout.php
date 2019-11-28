@@ -1,6 +1,6 @@
 <?php
 
-require 'includes/url.php';
+require 'classes/Url.php';
 
 session_start();
 
@@ -22,4 +22,4 @@ if (ini_get("session.use_cookies")) {
 
 session_destroy();
 
-redirect('/');
+Url::redirect('/');
