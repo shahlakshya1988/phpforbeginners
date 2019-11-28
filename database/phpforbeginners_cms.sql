@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2019 at 05:39 AM
+-- Generation Time: Nov 28, 2019 at 12:06 PM
 -- Server version: 5.7.14
 -- PHP Version: 5.6.25
 
@@ -49,7 +49,6 @@ INSERT INTO `article` (`id`, `title`, `content`, `published_at`) VALUES
 (11, 'hello', 'hello world', '2019-11-09 04:01:00'),
 (12, 'hello', 'hello world', '2019-11-09 04:01:00'),
 (13, 'hello\' "', 'asdfasdf', '2019-11-22 14:00:00'),
-(14, 'ddd', 'asdfasdfsadf', '2018-01-05 01:00:00'),
 (15, '<script>alert(\\\\\\"Hello World\\\\\\");</script>', 'conent', '2019-11-22 13:00:00'),
 (17, 'asdf', '', '0000-00-00 00:00:00'),
 (19, 'new article pdo insert', 'new article pdo insert', '0000-00-00 00:00:00');
@@ -66,6 +65,13 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `password`) VALUES
+(1, 'dave', '$2y$10$pI8UPCGHQrtt52Ov.CE9y.Q/ezLD3UK.6KEklBG0MVz1mZ73arohe');
 
 --
 -- Indexes for dumped tables
@@ -93,12 +99,12 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `article`
 --
 ALTER TABLE `article`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
