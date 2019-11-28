@@ -4,8 +4,7 @@ require_once "includes/init.php";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $db = new Database();
-    $conn = $db->getConn();
+    $conn = require_once "includes/db.php";
     if (User::authenticate($conn,$_POST["username"],$_POST["password"])) {
 
         session_regenerate_id(true);

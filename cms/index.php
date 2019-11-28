@@ -3,8 +3,7 @@
 require_once "includes/init.php";
 
 
-$db = new Database();
-$conn = $db->getConn();
+$conn = require_once "includes/db.php";
 
 $articles = Article::getAll($conn);
 
