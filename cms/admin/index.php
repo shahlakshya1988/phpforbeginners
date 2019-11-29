@@ -2,7 +2,7 @@
 
 require_once "../includes/init.php";
 
-
+Auth::requireLogin();
 $conn = require_once "../includes/db.php";
 
 $articles = Article::getAll($conn);
@@ -21,20 +21,29 @@ $articles = Article::getAll($conn);
 
 <?php endif; ?>
 
+<h2>Administration</h2>
+
 <?php if (empty($articles)) : ?>
     <p>No articles found.</p>
 <?php else : ?>
-
-    <ul>
+<table>
+    <thead>
+        <tr>
+            <th>Article Title</th>
+        </tr>
+    </thead>
+    <tbody>
         <?php foreach ($articles as $article) : ?>
-            <li>
-                <article>
-                    <h2><a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a></h2>
-                    <p><?= htmlspecialchars($article['content']); ?></p>
-                </article>
-            </li>
+           <tr>
+                <td>
+                    <a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a>
+                 </td>
+             </tr>       
+              
         <?php endforeach; ?>
-    </ul>
+    </tbody>
+</table>
+
 
 <?php endif; ?>
 
