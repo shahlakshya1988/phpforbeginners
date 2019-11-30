@@ -6,7 +6,15 @@ require_once "includes/init.php";
 $conn = require_once "includes/db.php";
 
 $articles = Article::getAll($conn);
-$paginator = new Paginator(1,10);
+/*$page = $_GET["page"] ?? 1;
+var_dump($page);*/
+if(isset($_GET["page"]) && !empty($_GET["page"]) ){
+  $page = (int) $_GET["page"];
+  $page = trim($page);
+}else{
+  $page = 1;
+}
+$paginator = new Paginator($page,10);
 // var_dump($paginator);
 // die();
 $articles = Article::getPage($conn,$paginator->limit,$paginator->offset);
