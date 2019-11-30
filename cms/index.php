@@ -6,7 +6,10 @@ require_once "includes/init.php";
 $conn = require_once "includes/db.php";
 
 $articles = Article::getAll($conn);
-$articles = Article::getPage($conn,4,0);
+$paginator = new Paginator(1,10);
+// var_dump($paginator);
+// die();
+$articles = Article::getPage($conn,$paginator->limit,$paginator->offset);
 
 ?>
 <?php require 'includes/header.php'; ?>
