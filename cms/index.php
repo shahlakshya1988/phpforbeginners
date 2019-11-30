@@ -14,7 +14,7 @@ if(isset($_GET["page"]) && !empty($_GET["page"]) ){
 }else{
   $page = 1;
 }
-$paginator = new Paginator($page,10);
+$paginator = new Paginator($page,5);
 // var_dump($paginator);
 // die();
 $articles = Article::getPage($conn,$paginator->limit,$paginator->offset);
@@ -37,7 +37,14 @@ $articles = Article::getPage($conn,$paginator->limit,$paginator->offset);
             </li>
         <?php endforeach; ?>
     </ul>
-
+    <nav>
+        <ul>
+            <?php if($paginator->previous>0){ ?> 
+                <li><a href="/index.php?page=<?=$paginator->previous;?>"><?=$paginator->previous;?></a></li>
+            <?php } ?>
+            <li><a href="/index.php?page=<?=$paginator->next;?>"><?=$paginator->next;?></a></li>
+        </ul>
+    </nav>
 <?php endif; ?>
 
 <?php require 'includes/footer.php'; ?>
