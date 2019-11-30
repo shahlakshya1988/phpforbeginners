@@ -209,4 +209,14 @@ class Article
             return false;
         }
     }
+
+    public static function getPage($conn,$limit,$offset){
+      $sql="SELECT * FROM `article` ORDER BY `published_at` LIMIT :limit_val OFFSET :offset_val ";
+      $stmt = $conn->prepare($sql);
+      $stmt->bindParam(":limit_val",$limit,PDO::PARAM_INT);
+      $stmt->bindParam(":offset_val",$offset,PDO::PARAM_INT);
+      $stmt->execute();
+      $stmt->errorInfo();
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

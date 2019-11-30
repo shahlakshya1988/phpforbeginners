@@ -6,6 +6,7 @@ require_once "includes/init.php";
 $conn = require_once "includes/db.php";
 
 $articles = Article::getAll($conn);
+$articles = Article::getPage($conn,4,0);
 
 ?>
 <?php require 'includes/header.php'; ?>
