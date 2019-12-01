@@ -14,7 +14,7 @@ if(isset($_GET["page"]) && !empty($_GET["page"]) ){
 }else{
   $page = 1;
 }
-$paginator = new Paginator($page,5);
+$paginator = new Paginator($page,5,Article::getTotal($conn));
 // var_dump($paginator);
 // die();
 $articles = Article::getPage($conn,$paginator->limit,$paginator->offset);
@@ -42,7 +42,10 @@ $articles = Article::getPage($conn,$paginator->limit,$paginator->offset);
             <?php if($paginator->previous>0){ ?> 
                 <li><a href="/index.php?page=<?=$paginator->previous;?>"><?=$paginator->previous;?></a></li>
             <?php } ?>
-            <li><a href="/index.php?page=<?=$paginator->next;?>"><?=$paginator->next;?></a></li>
+            <?php if($paginator->next){?>
+                <li><a href="/index.php?page=<?=$paginator->next;?>"><?=$paginator->next;?></a></li>
+            <?php } ?>
+            
         </ul>
     </nav>
 <?php endif; ?>

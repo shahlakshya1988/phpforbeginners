@@ -219,4 +219,13 @@ class Article
       $stmt->errorInfo();
       return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    public static function getTotal($conn){
+        $sql = "SELECT COUNT(*) as records FROM `article`";
+        $stmt= $conn->prepare($sql);
+        $stmt->execute();
+        $count_result = $stmt->fetch(PDO::FETCH_OBJ);
+        return $count_result->records;
+      }
 }
