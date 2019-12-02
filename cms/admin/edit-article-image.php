@@ -28,14 +28,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } */
     echo "<pre>",print_r($_FILES),"</pre>";
     try{
+        if(empty($_FILES)){
+            throw new Exception("Please Select The File To Upload");
+        }
         switch($_FILES["file"]["error"]){
             case UPLOAD_ERR_OK:
                 break;
             case UPLOAD_ERR_NO_FILE:
                 throw new Exception("No File Uploaded");
                 break;
+            case UPLOAD_ERR_INI_SET:
+                throw new Exception("File is Too Large");
+                break;
             default:
                 throw new Exception("An Upload Error Occured");
+        }
+        if($_FILES["file"]["size"] >1000000){
+            throw new Exception("Please Upload File Under 1 MB");
+        }
+        $allowed_types=["image/gif","image/png","image/jpg","image/jpeg"];
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo,$_FILES["file"]["tmp_name"]);
+        if(!in_array($mime_type,$allowed_types)){
+            throw new Exception("File Type Improper");
         }
     }catch(Exception $e){
         var_dump($e->getMessage());
