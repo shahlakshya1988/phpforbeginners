@@ -27,6 +27,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } */
     echo "<pre>",print_r($_FILES),"</pre>";
+    try{
+        switch($_FILES["file"]["error"]){
+            case UPLOAD_ERR_OK:
+                break;
+            case UPLOAD_ERR_NO_FILE:
+                throw new Exception("No File Uploaded");
+                break;
+            default:
+                throw new Exception("An Upload Error Occured");
+        }
+    }catch(Exception $e){
+        var_dump($e->getMessage());
+    }
 }
 
 ?>
