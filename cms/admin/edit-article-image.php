@@ -52,6 +52,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(!in_array($mime_type,$allowed_types)){
             throw new Exception("File Type Improper");
         }
+        $destination = "../uploads/".strtolower($_FILES["file"]["name"]);
+        if(!move_uploaded_file($_FILES["file"]["tmp_name"],$destination)){
+            throw new Exception("Error In Moving File");
+        }   
     }catch(Exception $e){
         var_dump($e->getMessage());
     }
