@@ -52,7 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(!in_array($mime_type,$allowed_types)){
             throw new Exception("File Type Improper");
         }
-        $destination = "../uploads/".strtolower($_FILES["file"]["name"]);
+        // sanitizing the file name
+        $pathinfo=pathinfo($_FILES["file"]["name"]);
+        $base = $pathinfo["filename"];
+        $base = preg_replace("/[^a-zA-Z0-9_-]/","_",$base);
+        $filename = $base.".".$pathinfo["extension"];
+
+        // sanitizing the file name
+        $destination = "../uploads/".strtolower($filename);
         if(!move_uploaded_file($_FILES["file"]["tmp_name"],$destination)){
             throw new Exception("Error In Moving File");
         }   
