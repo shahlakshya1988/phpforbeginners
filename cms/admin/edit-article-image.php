@@ -68,6 +68,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         if(!move_uploaded_file($_FILES["file"]["tmp_name"],$destination)){
             throw new Exception("Error In Moving File");
+        }else{
+            if($article->setImageFile($conn,$filename)){
+                Url::redirect("/admin/article.php?id={$article->id}");
+            }
         }   
     }catch(Exception $e){
         var_dump($e->getMessage());

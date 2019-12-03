@@ -38,6 +38,11 @@ class Article
     public $errors = [];
 
     /**
+     * 
+     */
+    public $image_file;
+
+    /**
      * Get all the articles
      *
      * @param object $conn Connection to the database
@@ -227,5 +232,16 @@ class Article
         $stmt->execute();
         $count_result = $stmt->fetch(PDO::FETCH_OBJ);
         return $count_result->records;
+      }
+
+      public function setImageFile($conn,$file_name){
+        $sql = "UPDATE `article` SET `image_file` = :image_file WHERE `id` = :id LIMIT 1 ";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(":image_file",$file_name,PDO::PARAM_STR);
+        $stmt->bindParam(":id",$this->id,PDO::PARAM_INT);
+        
+        return $stmt->execute();
+
+
       }
 }
