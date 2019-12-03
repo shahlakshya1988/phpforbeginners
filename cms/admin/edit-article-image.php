@@ -57,9 +57,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $base = $pathinfo["filename"];
         $base = preg_replace("/[^a-zA-Z0-9_-]/","_",$base);
         $filename = $base.".".$pathinfo["extension"];
-
         // sanitizing the file name
+       
         $destination = "../uploads/".strtolower($filename);
+        $number=1;
+        while(file_exists($destination)){
+            $filename = $base."-".$number.".".$pathinfo["extension"];
+            $destination = "../uploads/".strtolower($filename);
+            $number++;
+        }
         if(!move_uploaded_file($_FILES["file"]["tmp_name"],$destination)){
             throw new Exception("Error In Moving File");
         }   
