@@ -82,6 +82,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php require '../includes/header.php'; ?>
 
 <h2>Edit Article</h2>
+<?php if($article->image_file){ ?>
+    <img src="../uploads/<?=$article->image_file; ?>" alt="" style="max-width:10vw;"> 
+<?php } ?>
 <form action="" method="POST" enctype="multipart/form-data">
     <label for="file">Upload Image</label>
     <input type="file" name="file" id="file">
