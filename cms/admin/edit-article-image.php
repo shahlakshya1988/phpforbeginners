@@ -16,6 +16,7 @@ if (isset($_GET['id'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
 
     /*$article->title = $_POST['title'];
     $article->content = $_POST['content'];
@@ -26,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         Url::redirect("/admin/article.php?id={$article->id}");
 
     } */
-    echo "<pre>",print_r($_FILES),"</pre>";
+    //echo "<pre>",print_r($_FILES),"</pre>";
     try{
         if(empty($_FILES)){
             throw new Exception("Please Select The File To Upload");
@@ -69,7 +70,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if(!move_uploaded_file($_FILES["file"]["tmp_name"],$destination)){
             throw new Exception("Error In Moving File");
         }else{
+            $previous_image = $article->image_file;
+
             if($article->setImageFile($conn,$filename)){
+                if($previous_image){
+                    unlink("../uploads/".$previous_image);
+                }
                 Url::redirect("/admin/article.php?id={$article->id}");
             }
         }   
