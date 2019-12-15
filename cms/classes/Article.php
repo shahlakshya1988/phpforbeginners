@@ -256,4 +256,16 @@ class Article
         return $results = $stmt->fetchAll(PDO::FETCH_OBJ);
 
       }
+
+      /**
+       * getting categories, from the article object
+       */
+      public function getCategory($conn){
+            $sql="SELECT * FROM `category` left join `article_category` on `category`.`id` = `article_category`.`category_id` where `article_category`.`article_id` = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(":id",$this->id,PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_OBJ);
+
+      }
 }
