@@ -244,4 +244,16 @@ class Article
 
 
       }
+
+      /**
+       * getting articles with categories
+       */
+      public static function getWithCategory($conn,$id){
+        $sql="SELECT `article`.*,`category`.`name` as `category_name` FROM `article` LEFT JOIN `article_category` on `article`.`id` = `article_category`.`article_id` LEFT JOIN `category` on `article_category`.`category_id` = `category`.`id` where `article`.`id` =:id ";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(":id",$id,PDO::PARAM_INT);
+        $stmt->execute();
+        return $results = $stmt->fetchAll(PDO::FETCH_OBJ);
+
+      }
 }
