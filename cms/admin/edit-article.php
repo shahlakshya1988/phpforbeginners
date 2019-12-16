@@ -14,6 +14,11 @@ if (isset($_GET['id'])) {
 } else {
     die("id not supplied, article not found");
 }
+$article_category = $article->getCategory($conn);
+$article_category_id = array_column($article_category,"id");
+// var_dump($article_category);
+$categories = Category::getAll($conn);
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
