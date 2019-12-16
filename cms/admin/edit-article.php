@@ -25,8 +25,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $article->title = $_POST['title'];
     $article->content = $_POST['content'];
     $article->published_at = $_POST['published_at'];
+     $categories_id = $_POST["category"] ?? [];
 
     if ($article->update($conn)) {
+        $article->setCategories($conn,$categories_id);
 
         Url::redirect("/admin/article.php?id={$article->id}");
 
