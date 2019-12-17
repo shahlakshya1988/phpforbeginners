@@ -130,9 +130,8 @@ class Article
         if($categories){
             $sql="INSERT IGNORE INTO `article_category`(`article_id`,`category_id`) values (:article_id,:category_id)";
             $stmt = $conn->prepare($sql);
-            
-            foreach($categories as $id){
-                $stmt->bindParam(":article_id",$this->id,PDO::PARAM_INT);
+            $stmt->bindParam(":article_id",$this->id,PDO::PARAM_INT);
+            foreach($categories as $id){                
                 $stmt->bindParam(":category_id",$id,PDO::PARAM_INT);
                 $stmt->execute();
             }
