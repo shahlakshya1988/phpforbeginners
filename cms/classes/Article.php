@@ -127,6 +127,12 @@ class Article
      * categories
      */
     public function setCategories($conn,$categories){
+		// we have to delete categories, before adding new categories 
+		$del_sql="DELETE FROM `article_category` where `article_id` = ?";
+		$del_stmt = $conn->prepare($del_sql);
+		$del_stmt->bindParam(1,$this->id,PDO::PARAM_INT);
+		$del_stmt->execute();
+		// we have to delele categories, before adding new categories 
         if($categories){
             $sql="INSERT IGNORE INTO `article_category`(`article_id`,`category_id`) values ";
 			$value=[]; // empty array
