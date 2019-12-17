@@ -128,13 +128,24 @@ class Article
      */
     public function setCategories($conn,$categories){
         if($categories){
-            $sql="INSERT IGNORE INTO `article_category`(`article_id`,`category_id`) values (:article_id,:category_id)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindParam(":article_id",$this->id,PDO::PARAM_INT);
-            foreach($categories as $id){                
-                $stmt->bindParam(":category_id",$id,PDO::PARAM_INT);
-                $stmt->execute();
-            }
+            $sql="INSERT IGNORE INTO `article_category`(`article_id`,`category_id`) values ";
+			$value=[]; // empty array
+			foreach($categories as $category){
+				// we are using question mark as we don't know
+				// the number of categories
+					$value[]=" ({$this->id},?) "; 
+			}
+			$sql.=" ".implode(", ",$value);
+			$stmt = $conn->prepare($sql);
+			
+			// note &$value should be there 
+			// otherwise last value is inserted 
+			foreach($categories as $key=>&$value){
+				// here we are using bindParma with index. index starts at 1, but array
+				// index starts as 0 so add one to it
+				$stmt->bindParam($key+1,$value,PDO::PARAM_INT);
+			}
+             $stmt->execute(); // single execute
         }
     }
 
