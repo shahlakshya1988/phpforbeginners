@@ -6,7 +6,7 @@ $conn = require_once "includes/db.php";
 
 if (isset($_GET['id'])) {
     $article = Article::getWithCategory($conn, $_GET['id']);
-    var_dump($article);
+    //var_dump($article);
 } else {
     $article = null;
 }

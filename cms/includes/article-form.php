@@ -20,7 +20,7 @@
 
     <div>
         <label for="published_at">Publication date and time</label>
-        <input type="datetime-local" name="published_at" id="published_at" value="<?= htmlspecialchars(date('Y-m-d\TH:i:s', strtotime($article->published_at))); ?>">
+        <input type="datetime-local" name="published_at" id="published_at" value="<?= htmlspecialchars(date('Y-m-d\TH:i:s', ($article->published_at) ? strtotime($article->published_at) : strtotime(date("d-F-Y")))); ?>">
     </div>
     <fieldset>
         <legend>Categories</legend>

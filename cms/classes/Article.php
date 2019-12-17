@@ -221,11 +221,14 @@ class Article
      */
     public function create($conn)
     {
+		//var_dump($conn);
         if ($this->validate()) {
 
             $sql = "INSERT INTO article (title, content, published_at)
                     VALUES (:title, :content, :published_at)";
-
+			//var_dump($sql);
+			//var_dump($conn);
+			//print_r($conn);
             $stmt = $conn->prepare($sql);
 
             $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
