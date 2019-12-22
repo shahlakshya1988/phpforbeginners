@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <img src="../uploads/<?=$article->image_file; ?>" alt="" style="max-width:10vw;"> 
 <?php } ?>
 <form action="" method="POST" enctype="multipart/form-data">
-    <a href="edit-article-image.php?id=<?=$article->id;?>">Cancel</a>
+    <a  href="edit-article-image.php?id=<?=$article->id;?>">Cancel</a>
     <button type="submit">Delete File</button>
 </form>
 
