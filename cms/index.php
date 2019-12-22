@@ -32,6 +32,12 @@ $articles = Article::getPage($conn,$paginator->limit,$paginator->offset);
             <li>
                 <article>
                     <h2><a href="article.php?id=<?= $article['id']; ?>"><?= htmlspecialchars($article['title']); ?></a></h2>
+                    <?php if(!empty($article["category_names"])){ ?>
+                        <?php foreach($article["category_names"] as $cat_name){ ?>
+                            <p><?=htmlspecialchars($cat_name)?></p>
+                        <?php } ?>
+                    <?php } ?>
+                   
                     <p><?= htmlspecialchars($article['content']); ?></p>
                 </article>
             </li>
